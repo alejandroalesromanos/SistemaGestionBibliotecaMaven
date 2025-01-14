@@ -8,6 +8,8 @@ import java.util.List;
 public class GestorNotificaciones {
     private Db db;
 
+    //Me cago en los muertos de gitHub
+    
     // Mostrar notificaciones según el usuario
     public List<Notificacion> mostrarNotificaciones(int idUsuario) {
         List<Notificacion> notificaciones = new ArrayList<>();
