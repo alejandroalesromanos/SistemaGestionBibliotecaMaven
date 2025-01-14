@@ -1,87 +1,95 @@
 package modelo;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "prestamos")
 public class Prestamo {
 
-	private int id;
-	private int idLibro;
-	private int idUsuario;
-	private Date fechaPrestamo;
-	private Date fechaDevolucion;
-	private float multa;
-	
-	
-	public Prestamo(int id, int idLibro, int idUsuario, Date fechaPrestamo, Date fechaDevolucion, float multa) {
-		super();
-		this.id = id;
-		this.idLibro = idLibro;
-		this.idUsuario = idUsuario;
-		this.fechaPrestamo = fechaPrestamo;
-		this.fechaDevolucion = fechaDevolucion;
-		this.multa = multa;
-	}
+    @Id
+    @Column(name = "id")
+    private int id;
 
+    @Column(name = "id_libro")
+    private int idLibro;
 
-	public int getId() {
-		return id;
-	}
+    @Column(name = "id_usuario")
+    private int idUsuario;
 
+    @Column(name = "fecha_prestamo")
+    private Date fechaPrestamo;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "fecha_devolucion")
+    private Date fechaDevolucion;
 
+    @Column(name = "multa")
+    private float multa;
 
-	public int getIdLibro() {
-		return idLibro;
-	}
+    // Constructor por defecto, necesario para Hibernate
+    public Prestamo() {
+    }
 
+    // Constructor con parámetros
+    public Prestamo(int id, int idLibro, int idUsuario, Date fechaPrestamo, Date fechaDevolucion, float multa) {
+        this.id = id;
+        this.idLibro = idLibro;
+        this.idUsuario = idUsuario;
+        this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion = fechaDevolucion;
+        this.multa = multa;
+    }
 
-	public void setIdLibro(int idLibro) {
-		this.idLibro = idLibro;
-	}
+    // Métodos getter y setter
 
+    public int getId() {
+        return id;
+    }
 
-	public int getIdUsuario() {
-		return idUsuario;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public int getIdLibro() {
+        return idLibro;
+    }
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    public void setIdLibro(int idLibro) {
+        this.idLibro = idLibro;
+    }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
 
-	public Date getFechaPrestamo() {
-		return fechaPrestamo;
-	}
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
+    public Date getFechaPrestamo() {
+        return fechaPrestamo;
+    }
 
-	public void setFechaPrestamo(Date fechaPrestamo) {
-		this.fechaPrestamo = fechaPrestamo;
-	}
+    public void setFechaPrestamo(Date fechaPrestamo) {
+        this.fechaPrestamo = fechaPrestamo;
+    }
 
+    public Date getFechaDevolucion() {
+        return fechaDevolucion;
+    }
 
-	public Date getFechaDevolucion() {
-		return fechaDevolucion;
-	}
+    public void setFechaDevolucion(Date fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
+    }
 
+    public float getMulta() {
+        return multa;
+    }
 
-	public void setFechaDevolucion(Date fechaDevolucion) {
-		this.fechaDevolucion = fechaDevolucion;
-	}
-
-
-	public float getMulta() {
-		return multa;
-	}
-
-
-	public void setMulta(float multa) {
-		this.multa = multa;
-	}
-	
-	
-	
+    public void setMulta(float multa) {
+        this.multa = multa;
+    }
 }

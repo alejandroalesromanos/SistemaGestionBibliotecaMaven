@@ -1,5 +1,14 @@
 package modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Column;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
 
     public enum Rol {
@@ -7,17 +16,38 @@ public class Usuario {
         USUARIO_ESTANDAR
     }
 
+    @Id
+    @Column(name = "id")
     private int id;
-    private String dni;
-    private String nombre;
-    private String apellidos;
-    private String email;
-    private String telefono;
-    private Rol rol;
-    private String password; // Nuevo atributo
 
+    @Column(name = "dni")
+    private String dni;
+
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Column(name = "apellidos")
+    private String apellidos;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "telefono")
+    private String telefono;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "rol")
+    private Rol rol;
+
+    @Column(name = "password")
+    private String password;
+
+    // Constructor por defecto, necesario para Hibernate
+    public Usuario() {
+    }
+
+    // Constructor con parámetros
     public Usuario(int id, String dni, String nombre, String apellidos, String email, String telefono, Rol rol, String password) {
-        super();
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -29,6 +59,7 @@ public class Usuario {
     }
 
     // Getters y Setters
+
     public int getId() {
         return id;
     }

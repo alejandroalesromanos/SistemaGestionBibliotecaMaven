@@ -1,64 +1,83 @@
 package modelo;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "reservas")
 public class Reservas {
 
-	private int id;
-	private int idLibro;
-	private int idUsuario;
-	private Date fechaReserva;
-	private boolean disponible;
-	
-	public Reservas(int id, int idLibro, int idUsuario, Date fechaReserva, boolean disponible) {
-		super();
-		this.id = id;
-		this.idLibro = idLibro;
-		this.idUsuario = idUsuario;
-		this.fechaReserva = fechaReserva;
-		this.disponible = disponible;
-	}
+    @Id
+    @Column(name = "id")
+    private int id;
 
-	public int getId() {
-		return id;
-	}
+    @Column(name = "id_libro")
+    private int idLibro;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "id_usuario")
+    private int idUsuario;
 
-	public int getIdLibro() {
-		return idLibro;
-	}
+    @Column(name = "fecha_reserva")
+    private Date fechaReserva;
 
-	public void setIdLibro(int idLibro) {
-		this.idLibro = idLibro;
-	}
+    @Column(name = "disponible")
+    private boolean disponible;
 
-	public int getIdUsuario() {
-		return idUsuario;
-	}
+    // Constructor por defecto, necesario para Hibernate
+    public Reservas() {
+    }
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    // Constructor con parámetros
+    public Reservas(int id, int idLibro, int idUsuario, Date fechaReserva, boolean disponible) {
+        this.id = id;
+        this.idLibro = idLibro;
+        this.idUsuario = idUsuario;
+        this.fechaReserva = fechaReserva;
+        this.disponible = disponible;
+    }
 
-	public Date getFechaReserva() {
-		return fechaReserva;
-	}
+    // Métodos getter y setter
 
-	public void setFechaReserva(Date fechaReserva) {
-		this.fechaReserva = fechaReserva;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public boolean isDisponible() {
-		return disponible;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setDisponible(boolean disponible) {
-		this.disponible = disponible;
-	}
-	
-	
-	
+    public int getIdLibro() {
+        return idLibro;
+    }
+
+    public void setIdLibro(int idLibro) {
+        this.idLibro = idLibro;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Date getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(Date fechaReserva) {
+        this.fechaReserva = fechaReserva;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
 }
