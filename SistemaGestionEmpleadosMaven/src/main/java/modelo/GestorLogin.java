@@ -1,11 +1,55 @@
 package modelo;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import javax.swing.*;
-import java.sql.*;
+import Vista.VistaLogin;
+import Vista.MenuPrincipal;
 
 public class GestorLogin {
 
-    public boolean validateCredentials(String email, String password, Vista.VistaLogin vista) {
+    public boolean validateCredentials(String email, String password, VistaLogin vista) {
+        Session session = null;
+        try {
+            // Abre una sesión de Hibernate
+            session = HibernateUtil.getSessionFactory().openSession();
+
+            // Utiliza HQL para buscar el usuario por email y contraseña
+            String hql = "FROM Usuario WHERE email = :email AND password = :password";
+            Query<Usuario> query = session.createQuery(hql, Usuario.class);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+
+            // Ejecuta la consulta
+            Usuario usuario = query.uniqueResult();
+
+            if (usuario != null) {
+                // Si se encuentra el usuario, se obtiene la información
+                String role = usuario.getRol();
+                String emailUser = usuario.getEmail();
+                String nombreCompleto = usuario.getNombre() + " " + usuario.getApellidos();
+
+                // Cierra la ventana de login y abre el menú principal según el rol
+                vista.dispose();
+                openMainMenu(role.equals("Administrador"), nombreCompleto, emailUser);
+                return true;
+            } else {
+                // Si no se encuentra el usuario, muestra un mensaje de error
+                vista.showErrorMessage("Credenciales incorrectas.");
+                return false;
+            }
+        } catch (Exception e) {
+            // Si ocurre un error al conectar a la base de datos, muestra un mensaje de error
+            vista.showErrorMessage("Error al conectarse a la base de datos: " + e.getMessage());
+            return false;
+        } finally {
+            if (session != null) {
+                session.close(); // Cierra la sesión de Hibernate
+            }
+        }
+
+        // Código viejo con JDBC (comentado para referencia futura)
+        /*
         try (Connection connection = new Db().getConnection();
              PreparedStatement ps = connection.prepareStatement("SELECT Nombre, Apellidos, Email, Rol FROM usuarios WHERE Email = ? AND password = ?")) {
             
@@ -31,9 +75,10 @@ public class GestorLogin {
             vista.showErrorMessage("Error al conectarse a la base de datos: " + e.getMessage());
             return false;
         }
+        */
     }
 
     private void openMainMenu(boolean isAdmin, String nombreCompleto, String emailUser) {
-        SwingUtilities.invokeLater(() -> new Vista.MenuPrincipal(isAdmin, nombreCompleto, emailUser).setVisible(true));
+        SwingUtilities.invokeLater(() -> new MenuPrincipal(isAdmin, nombreCompleto, emailUser).setVisible(true));
     }
 }
