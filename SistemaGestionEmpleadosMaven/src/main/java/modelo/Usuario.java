@@ -42,11 +42,9 @@ public class Usuario {
     @Column(name = "password")
     private String password;
 
-    // Constructor por defecto, necesario para Hibernate
     public Usuario() {
     }
 
-    // Constructor con parámetros
     public Usuario(int id, String dni, String nombre, String apellidos, String email, String telefono, Rol rol, String password) {
         this.id = id;
         this.dni = dni;
@@ -58,7 +56,6 @@ public class Usuario {
         this.password = password;
     }
 
-    // Getters y Setters
 
     public int getId() {
         return id;

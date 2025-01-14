@@ -1,18 +1,27 @@
 package modelo;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import javax.swing.*;
 import Vista.VistaLogin;
+import modelo.Usuario.Rol;
 import Vista.MenuPrincipal;
 
 public class GestorLogin {
 
+    private SessionFactory sessionFactory; // Para manejar la creación de sesiones
+
+    // Constructor que recibe el SessionFactory
+    public GestorLogin(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     public boolean validateCredentials(String email, String password, VistaLogin vista) {
         Session session = null;
         try {
-            // Abre una sesión de Hibernate
-            session = HibernateUtil.getSessionFactory().openSession();
+            // Crear una sesión a partir del SessionFactory
+            session = sessionFactory.openSession();
 
             // Utiliza HQL para buscar el usuario por email y contraseña
             String hql = "FROM Usuario WHERE email = :email AND password = :password";
@@ -25,7 +34,7 @@ public class GestorLogin {
 
             if (usuario != null) {
                 // Si se encuentra el usuario, se obtiene la información
-                String role = usuario.getRol();
+                Rol role = usuario.getRol();
                 String emailUser = usuario.getEmail();
                 String nombreCompleto = usuario.getNombre() + " " + usuario.getApellidos();
 

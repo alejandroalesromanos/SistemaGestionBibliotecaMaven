@@ -1,22 +1,26 @@
 package modelo;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestorNotificaciones {
-    private Db db;
+    private SessionFactory sessionFactory; // Para manejar la creación de sesiones
 
-    //Me cago en los muertos de gitHub
-    
+    // Constructor que recibe el SessionFactory
+    public GestorNotificaciones(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     // Mostrar notificaciones según el usuario
     public List<Notificacion> mostrarNotificaciones(int idUsuario) {
         List<Notificacion> notificaciones = new ArrayList<>();
         Session session = null;
         try {
             // Abre una sesión de Hibernate
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
 
             // HQL para obtener las notificaciones del usuario
             String hql = "FROM Notificacion WHERE idUsuario = :idUsuario";
@@ -65,7 +69,7 @@ public class GestorNotificaciones {
         Session session = null;
         try {
             // Abre una sesión de Hibernate
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
 
             // HQL para eliminar las notificaciones del usuario
@@ -104,7 +108,7 @@ public class GestorNotificaciones {
         Session session = null;
         try {
             // Abre una sesión de Hibernate
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             session.beginTransaction();
 
             // HQL para actualizar el estado de "Leido"
