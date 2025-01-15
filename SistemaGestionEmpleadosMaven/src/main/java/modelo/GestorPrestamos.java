@@ -3,7 +3,7 @@ package modelo;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import com.mysql.cj.xdevapi.SessionFactory;
+import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 import java.util.List;
